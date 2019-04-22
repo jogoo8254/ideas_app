@@ -1,0 +1,17 @@
+<%= form_with(model: @idea, local: true) do |form|%>
+    <% if @idea.errors.present? %>
+        <p class="form-errors">
+      <%= @question.errors.full_messages.join(", ") %>
+    </p>
+  <% end %>
+  <div>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+  <div>
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+   <%= form.submit %>
+<% end%>

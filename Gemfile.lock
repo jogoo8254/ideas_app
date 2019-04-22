@@ -161,6 +161,7 @@ PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
+  bcrypt
   bootsnap (>= 1.1.0)
   bundler
   byebug
