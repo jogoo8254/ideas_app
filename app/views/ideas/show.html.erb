@@ -2,7 +2,9 @@
 
 <section class="section">
     <p><%= @idea.body %></p>
-
+    <h4>
+        Created by: <%= @idea.user&.full_name || 'DELETED' %>
+    </h4>
     <div>
         <small>
             Asked <%= time_ago_in_words(@idea.created_at) %> ago
@@ -61,7 +63,10 @@
             ) %>
           </small>
           <small>
-            Idea_created <%= time_ago_in_words(created_idea.created_at) %> ago
+            Idea created <%= time_ago_in_words(created_idea.created_at) %> ago
+          </small>
+          <small>
+            Answered by: <%= created_idea.user&.full_name || 'DELETED' %>
           </small>
         </p>
         </li>

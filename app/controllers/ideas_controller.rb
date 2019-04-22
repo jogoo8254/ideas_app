@@ -1,6 +1,6 @@
 class IdeasController < ApplicationController
+    before_action :authenticate_user!, except: [:index, :show]
     before_action :find_idea, only: [:show, :edit, :update, :destroy]
-    before_action :authenticate_user!
 
     def index
         @ideas = Idea.all.order(created_at: :desc)
@@ -12,6 +12,7 @@ class IdeasController < ApplicationController
     def create
         # idea_params = params.require(:idea).permit(:title, :body)
         @idea = Idea.new idea_params
+        @idea.user = current_user
         if @idea.save
             redirect_to idea_path(@idea.id)
             # render text: "Idea created successfully"
