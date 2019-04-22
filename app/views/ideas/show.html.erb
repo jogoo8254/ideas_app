@@ -14,6 +14,7 @@
         </small>
     </div>
     <div>
+      <% if can?(:crud, @idea) %>
         <small>
             <%= link_to "Edit", edit_idea_path(@idea) %>
         </small>
@@ -24,6 +25,7 @@
                 data: {confirm: "Are you sure?"}
                 )%>
         </small>
+      <% end %>
     </div>
 </section>
  <section>
@@ -53,15 +55,17 @@
         <li>
           <p>
           <%= created_idea.description %> <br />
-          <small>
-            <%= link_to(
-            "Delete",
-            idea_created_idea_path(@idea, created_idea),
-            method: :delete, data: {
-              confirm: "Are you sure?"
-            }
-            ) %>
-          </small>
+          <% if can?(:crud, created_idea) %>
+            <small>
+              <%= link_to(
+              "Delete",
+              idea_created_idea_path(@idea, created_idea),
+              method: :delete, data: {
+                confirm: "Are you sure?"
+              }
+              ) %>
+            </small>
+          <% end %>
           <small>
             Idea created <%= time_ago_in_words(created_idea.created_at) %> ago
           </small>

@@ -16,8 +16,12 @@ class CreatedIdeasController < ApplicationController
     
        def destroy
         @created_idea = Created_idea.find(params[:id])
-        @created_idea.destroy
-        redirect_to idea_path(@created_idea.idea)
+        if can?(:crud, @created_idea)
+          @created_idea.destroy
+          redirect_to idea_path(@created_idea.idea)
+        else
+          head :unauthorized
+        end
       end
     
        private
