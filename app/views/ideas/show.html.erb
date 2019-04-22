@@ -1,0 +1,26 @@
+<h3><%= @idea.title %></h3>
+
+<section class="section">
+    <p><%= @idea.body %></p>
+
+    <div>
+        <small>
+            Asked <%= time_ago_in_words(@idea.created_at) %> ago
+        </small>
+        <small>
+            Last edited <%= time_ago_in_words(@idea.updated_at) %> ago
+        </small>
+    </div>
+    <div>
+        <small>
+            <%= link_to "Edit", edit_idea_path(@idea) %>
+        </small>
+        <small>
+            <%= link_to(
+                "Delete", idea_path(@idea),
+                method: :delete,
+                data: {confirm: "Are you sure?"}
+                )%>
+        </small>
+    </div>
+</section>

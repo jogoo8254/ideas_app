@@ -1,0 +1,10 @@
+<ul class="idea-list">
+    <% @ideas.each do |idea| %>
+        <li>
+            <%= link_to(idea.title, idea_path(idea)) %> <br />
+            <small>
+                Posted <%= time_ago_in_words(idea.created_at) %> ago
+            </small>
+        </li>
+    <% end%>
+</ul>

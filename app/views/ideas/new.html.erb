@@ -1,0 +1,17 @@
+<h1>New Ideas</h1>
+<%= form_with(model: @idea, local: true) do |f| %>
+    <% if @idea.errors.present? %>
+        <p class="form-errors">
+            <%= @idea.errors.full_messages.join(", ") %>
+        </p>
+    <% end %>
+    <div>
+        <%= f.label :title %>
+        <%= f.text_field :title %>
+    </div>
+    <div>
+        <%= f.label :body %>
+        <%= f.text_area :body %>
+    </div>
+    <%= f.submit %>
+<% end %>
