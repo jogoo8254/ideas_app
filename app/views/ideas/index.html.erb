@@ -8,23 +8,33 @@
       <body>
         By <%= idea.user&.first_name || 'DELETED' %>
 
-    <%= link_to 'Join', '/' %>
-    <%= link_to 'Like', '/' %>
-<!--    <% if user_signed_in? %>
-      Hello Mr. <%= current_user.first_name %> |
-      <%= link_to "Sign Out", session_path, method: :delete, data: {confirm: "are you sure you want to log out?"} %>
+    <div>
+
+    <% if @like.present? %>
+      <%=
+        link_to(
+          "Liked",
+          idea_like_path(idea, @like),
+          method: :delete
+        )
+      %>
     <% else %>
-      <%= link_to "Sign In", new_session_path %>
-      <%= link_to "Sign Up", new_user_path %>
+      <%=
+        link_to(
+          "Like",
+          idea_likes_path(idea),
+          method: :post
+        )
+      %>
     <% end %>
-    <hr>
-    <% flash.each do |type, message| %>
-      <div class="flash flash-<%= type %>">
-        <%= message %>
-      </div>
-    <% end %>
-    <%= yield %> -->
+    <small>
+        Likes: <%= pluralize(idea.likes.count,'') %>
+    </small>
+
+    </div>
+
   </body>
+
 <!--            <small>
                 Posted <%= time_ago_in_words(idea.created_at) %> ago
             </small> -->

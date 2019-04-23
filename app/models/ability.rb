@@ -44,5 +44,9 @@ class Ability
     can :crud, CreatedIdea do |created_i|
       created_i.user == user || created_i.created_idea.user == user
    end
+
+   can :like, Idea do |idea|
+    user.persisted? && idea.user != user
+  end
   end
 end

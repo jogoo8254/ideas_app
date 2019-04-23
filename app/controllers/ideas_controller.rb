@@ -5,6 +5,7 @@ class IdeasController < ApplicationController
 
     def index
         @ideas = Idea.all.order(created_at: :desc)
+        @like = @ideas.likes.find_by(user: current_user)
     end
     def new
         @idea = Idea.new

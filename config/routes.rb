@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   resource :session, only: [:new, :create, :destroy]
 
   resources :ideas do
-    resources :created_ideas, only: [:create, :destroy] 
+    resources :created_ideas, only: [:create, :destroy]
+    resources :likes, only: [:create, :destroy]
   end
   get('/', { to: 'welcome#index', as: 'root' })
 
