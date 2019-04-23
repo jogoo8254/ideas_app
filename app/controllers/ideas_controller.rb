@@ -5,7 +5,6 @@ class IdeasController < ApplicationController
 
     def index
         @ideas = Idea.all.order(created_at: :desc)
-        @like = @ideas.likes.find_by(user: current_user)
     end
     def new
         @idea = Idea.new
@@ -26,6 +25,8 @@ class IdeasController < ApplicationController
         # @idea = Idea.find params[:id]
         @created_idea = CreatedIdea.new
         @created_ideas = @idea.created_ideas.order(created_at: :desc)
+        @like = @ideas.likes.find_by(user: current_user)
+
     end
     def edit
         # @idea = Idea.find params[:id]        
