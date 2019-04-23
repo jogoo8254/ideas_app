@@ -4,8 +4,7 @@ require 'rails_helper'
   describe "#new" do
     it "renders a new template" do
 
-      get(:new) # Simulates a GET to IdeasController's new action
-
+      get(:new)
       expect(response).to(render_template(:new))
     end
 
