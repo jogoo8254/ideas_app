@@ -36,10 +36,12 @@ class Ability
       can :manage, :all
     end
 
-    alias_action :create, :read, :update, :destroy, :to :crud
+    alias_action :create, :read, :update, :destroy, to: :crud
+    # alias_action(:create, :read, :update, :delete, to: :crud)
+
     can :crud, Idea, user_id: user.id
 
-    can :crud, Created_idea do |created_i|
+    can :crud, CreatedIdea do |created_i|
       created_i.user == user || created_i.created_idea.user == user
    end
   end

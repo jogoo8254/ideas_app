@@ -23,7 +23,7 @@ class IdeasController < ApplicationController
     end
     def show
         # @idea = Idea.find params[:id]
-        @created_idea = Created_idea.new
+        @created_idea = CreatedIdea.new
         @created_ideas = @idea.created_ideas.order(created_at: :desc)
     end
     def edit

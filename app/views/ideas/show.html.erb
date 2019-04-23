@@ -1,7 +1,7 @@
 <h3><%= @idea.title %></h3>
 
 <section class="section">
-    <p><%= @idea.body %></p>
+    <p><%= @idea.description %></p>
     <h4>
         Created by: <%= @idea.user&.full_name || 'DELETED' %>
     </h4>
@@ -29,7 +29,7 @@
     </div>
 </section>
  <section>
-  <h1>Created ideas</h1>
+  <h1>Reviews</h1>
 
    <%= form_with(model: [@idea, @created_idea], local: true) do |f| %>
     <% if @created_idea.errors.present? %>
@@ -45,7 +45,7 @@
       class: "form-control"
       ) %>
     </div>
-    <%= f.submit "Created idea" %>
+    <%= f.submit "Comment" %>
   <% end %>
 
    <hr />

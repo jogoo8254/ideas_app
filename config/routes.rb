@@ -6,4 +6,6 @@ Rails.application.routes.draw do
   resources :ideas do
     resources :created_ideas, only: [:create, :destroy] 
   end
+  get('/', { to: 'welcome#index', as: 'root' })
+
 end

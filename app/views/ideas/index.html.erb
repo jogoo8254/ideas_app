@@ -1,10 +1,33 @@
 <ul class="idea-list">
     <% @ideas.each do |idea| %>
         <li>
+        <h2>
             <%= link_to(idea.title, idea_path(idea)) %> <br />
-            <small>
+            </h2>
+                <p><%= idea.description %></p>
+      <body>
+        By <%= idea.user&.first_name || 'DELETED' %>
+
+    <%= link_to 'Join', '/' %>
+    <%= link_to 'Like', '/' %>
+<!--    <% if user_signed_in? %>
+      Hello Mr. <%= current_user.first_name %> |
+      <%= link_to "Sign Out", session_path, method: :delete, data: {confirm: "are you sure you want to log out?"} %>
+    <% else %>
+      <%= link_to "Sign In", new_session_path %>
+      <%= link_to "Sign Up", new_user_path %>
+    <% end %>
+    <hr>
+    <% flash.each do |type, message| %>
+      <div class="flash flash-<%= type %>">
+        <%= message %>
+      </div>
+    <% end %>
+    <%= yield %> -->
+  </body>
+<!--            <small>
                 Posted <%= time_ago_in_words(idea.created_at) %> ago
-            </small>
+            </small> -->
         </li>
     <% end%>
 </ul>
