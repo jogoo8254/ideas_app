@@ -1,0 +1,62 @@
+class IdeasController < ApplicationController
+    before_action :authenticate_user!, except: [:index, :show]
+    before_action :find_idea, only: [:show, :edit, :update, :destroy]
+    before_action :authorize, only: [:edit, :update, :destroy]
+
+    def index
+        @ideas = Idea.all.order(created_at: :desc)
+
+    end
+    def new
+        @idea = Idea.new
+    end
+
+    def create
+        # idea_params = params.require(:idea).permit(:title, :body)
+        @idea = Idea.new idea_params
+        @idea.user = current_user
+        if @idea.save
+            redirect_to idea_path(@idea.id)
+            # render text: "Idea created successfully"
+        else
+            render :new
+        end
+    end
+    def show
+        # @idea = Idea.find params[:id]
+        @created_idea = CreatedIdea.new
+        @created_ideas = @idea.created_ideas.order(created_at: :desc)
+        @like = @idea.likes.find_by(user: current_user)
+
+    end
+    def edit
+        # @idea = Idea.find params[:id]        
+    end
+    def update
+        # @idea = Idea.find(params[:id])
+        # idea_params = params.require(:idea).permit(:title, :body)
+        if @idea.update idea_params
+            redirect_to idea_path(@idea.id)
+        else
+            render :edit
+        end
+    end
+    def destroy
+        # idea = Idea.find params[:id]
+        idea.destroy
+        redirect_to root_path
+    end
+
+    private
+    def idea_params
+        params.require(:idea).permit(:title,:description)
+    end
+
+    def find_idea
+        @idea = Idea.find(params[:id])        
+    end
+
+    def authorize
+        redirect_to root_path, alert: 'Not Authorized' unless can?(:crud, @idea)
+    end
+end

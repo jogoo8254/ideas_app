@@ -1,0 +1,79 @@
+<h3><%= @idea.title %></h3>
+
+<section class="section">
+    <p><%= @idea.description %></p>
+    <h4>
+        Created by: <%= @idea.user&.full_name || 'DELETED' %>
+    </h4>
+    <div>
+        <small>
+            Asked <%= time_ago_in_words(@idea.created_at) %> ago
+        </small>
+        <small>
+            Last edited <%= time_ago_in_words(@idea.updated_at) %> ago
+        </small>
+    </div>
+    <div>
+      <% if can?(:crud, @idea) %>
+        <small>
+            <%= link_to "Edit", edit_idea_path(@idea) %>
+        </small>
+        <small>
+            <%= link_to(
+                "Delete", idea_path(@idea),
+                method: :delete,
+                data: {confirm: "Are you sure?"}
+                )%>
+        </small>
+      <% end %>
+    </div>
+</section>
+ <section>
+  <h1>Reviews</h1>
+
+   <%= form_with(model: [@idea, @created_idea], local: true) do |f| %>
+    <% if @created_idea.errors.present? %>
+      <p class="form-errors">
+        <%= @created_idea.errors.full_messages.join(", ") %>
+      </p>
+    <% end %>
+
+     <div class="form-group">
+      <%= f.text_area(
+      :description, cols: 50, rows: 5,
+      placeholder: "What are your thoughts...",
+      class: "form-control"
+      ) %>
+    </div>
+    <%= f.submit "Comment" %>
+  <% end %>
+
+   <hr />
+
+     <ul class="created_idea-list">
+      <% @created_ideas.each do |created_idea| %>
+        <li>
+          <p>
+          <%= created_idea.description %> <br />
+          <% if can?(:crud, created_idea) %>
+            <small>
+              <%= link_to(
+              "Delete",
+              idea_created_idea_path(@idea, created_idea),
+              method: :delete, data: {
+                confirm: "Are you sure?"
+              }
+              ) %>
+            </small>
+          <% end %>
+          <small>
+            Idea created <%= time_ago_in_words(created_idea.created_at) %> ago
+          </small>
+          <small>
+            Answered by: <%= created_idea.user&.full_name || 'DELETED' %>
+          </small>
+        </p>
+        </li>
+      <% end %>
+    </ul>
+</section>

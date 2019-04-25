@@ -1,0 +1,43 @@
+<ul class="idea-list">
+    <% @ideas.each do |idea| %>
+        <li>
+        <h2>
+            <%= link_to(idea.title, idea_path(idea)) %> <br />
+            </h2>
+                <p><%= idea.description %></p>
+      <body>
+        By <%= idea.user&.first_name || 'DELETED' %>
+
+    <div>
+
+    <% if @like.present? %>
+      <%=
+        link_to(
+          "Liked",
+          idea_like_path(idea, @like),
+          method: :delete
+        )
+      %>
+    <% else %>
+      <%=
+        link_to(
+          "Like",
+          idea_likes_path(idea),
+          method: :post
+        )
+      %>
+    <% end %>
+    <small>
+        Likes: <%= pluralize(idea.likes.count,'') %>
+    </small>
+
+    </div>
+
+  </body>
+
+<!--            <small>
+                Posted <%= time_ago_in_words(idea.created_at) %> ago
+            </small> -->
+        </li>
+    <% end%>
+</ul>
